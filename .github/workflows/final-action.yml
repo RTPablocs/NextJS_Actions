@@ -18,6 +18,7 @@ jobs:
 
       - name: Lint Code
         uses: github/super-linter@v3
+        id: linter
         env:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -70,7 +71,7 @@ jobs:
         run: |
           echo "::set-output name=cypress_outcome::$(cat cypress_result)"
       - name: Update Badge
-        uses: ./.github/actions
+        uses: ./.github/actions/readme
         with:
           status: ${{steps.results.outputs.cypress_outcome}}
       - name: Commit and push if changed
@@ -86,18 +87,33 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: add_badge_job
-
     steps:
       - name: Get Code
         uses: actions/checkout@v2
       - name: Vercel Deploy
         uses: amondnet/vercel-action@v20
+        id: deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
           vercel-args: '--prod' #Optional
           vercel-org-id: ${{ secrets.ORGID}}  #Required
           vercel-project-id: ${{ secrets.PRJID}} #Required
           working-directory: .
+
+  notify_job:
+
+    runs-on: ubuntu-latest
+
+    needs: deploy_job
+
+    steps:
+      - name: Send Mail
+        uses: ./.github/actions/mailer
+        with:
+          mail_sender: ${{secrets.MAIL}}
+          mail_reciever: ${{secrets.MAIL}}
+          mail_password: ${{secrets.PASSWD}}
+
 
 
 

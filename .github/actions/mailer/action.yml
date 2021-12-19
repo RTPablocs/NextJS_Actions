@@ -1,0 +1,19 @@
+name: 'Markdown Update Badge'
+description: 'Update badge when action executed'
+
+inputs:
+  mail_sender:
+    description: 'mail sender field'
+    required: true
+    default: ''
+  mail_reciever:
+    description: 'same as sender'
+    required: true
+    default: ''
+  mail_password:
+    description: 'mail password'
+    required: true
+    default: ''
+runs:
+  using: 'node12'
+  main: 'index.js'
