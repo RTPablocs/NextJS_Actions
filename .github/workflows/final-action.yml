@@ -113,7 +113,7 @@ jobs:
         uses: ./.github/actions/mailer
         with:
           mail_sender: ${{secrets.MAIL}}
-          mail_reciever: ${{secrets.MAIL}}
+          mail_reciever: ${{secrets.MAILR}}
           mail_password: ${{secrets.PASSWD}}
 
 
