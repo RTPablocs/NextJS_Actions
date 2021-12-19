@@ -31,13 +31,14 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Get Code
+      - name: Checkout
         uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
       - name: Cypress Execution
+        id: cypress
         continue-on-error: true
         uses: cypress-io/github-action/@v2
-        with:
-          headless: true
       - name: Print Dashboard URL
         run: |
           echo Cypress finished with: ${{ steps.cypress.outcome }}
