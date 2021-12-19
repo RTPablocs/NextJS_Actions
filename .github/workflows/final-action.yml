@@ -6,8 +6,16 @@ on:
 
 jobs: 
 
+  installation: 
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Install through npm
+      run: npm install
+
   lint:
 
+    needs: installation
     runs-on: ubuntu-latest
     
     steps:
