@@ -27,7 +27,7 @@ jobs:
   
   cypress_job:
     
-    needs: lint
+    needs: linter_job
 
     runs-on: ubuntu-latest
     steps:
