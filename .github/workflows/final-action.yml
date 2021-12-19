@@ -6,23 +6,16 @@ on:
 
 jobs: 
 
-  installation: 
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Get Code for Installation
-      uses: actions/checkout@v2
-    - name: Install through npm
-      run: npm install
-
   lint:
-
-    needs: installation
     runs-on: ubuntu-latest
     
     steps:
     - name: Get Code
       uses: actions/checkout@v2
+   
+    - name: Install through npm
+      run: npm install
+  
     - name: Lint Code
       uses: github/super-linter@v3
       env:
