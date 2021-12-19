@@ -1,0 +1,11 @@
+name: 'Markdown Update Badge'
+description: 'Update badge when action executed'
+
+inputs:
+  result:
+    description: 'Result from cypress tests'
+    required: true
+    default: ''
+runs:
+  using: 'node12'
+  main: 'index.js'

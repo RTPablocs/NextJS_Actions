@@ -6,7 +6,7 @@ on:
 
 jobs:
 
-  lint:
+  linter_job:
     runs-on: ubuntu-latest
     
     steps:
@@ -25,7 +25,7 @@ jobs:
           JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
           VALIDATE_JAVASCRIPT_ES: true
   
-  exectue_cypress_test:
+  cypress_job:
     
     needs: lint
 
@@ -43,6 +43,42 @@ jobs:
         uses: cypress-io/github-action/@v2
         with:
           start: npm start
-      - name: Print Dashboard URL
+      - name: Build Result Artifact
         run: |
-          echo Cypress finished with: ${{ steps.cypress.outcome }}
+          echo ${{ steps.cypress.outcome }} > cypress_result.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress_result
+          path: ./cypress_result.txt
+
+  add_badge_job:
+
+    needs: execute_cypress_test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Get Cypress Result
+        uses: actions/download-artiact@v2
+        with:
+          name: cypress_result
+      - name: Set Result as Output
+        id: results
+        run: |
+          echo "::set-output name=cypress_outcome::$(cat cypress_result)"
+      - name: Update Badge
+        uses: ./.github/actions
+        with:
+          status: ${{steps.results.outputs.cypress_outcome}}
+      - name: Commit and push if changed
+        run: | 
+          git config --global user.email "readme-bot@epablocs.com"
+          git config --global user.name "README-actionBot"
+          git add README.md
+          git commit -m "Updated Badge from test results" || exit 0
+          git push
+
+
