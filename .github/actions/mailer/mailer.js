@@ -15,11 +15,12 @@ const mailOptions = {
     from: core.getInput('mail_sender'),
     to: core.getInput('mail_reciever'),
     subject: 'Resultado de la action de NextJS',
-    text: `linter_job: ${core.getInput('stauts_A')} \n
+    text: `linter_job: ${core.getInput('status_A')} \n
     cypress_job: ${core.getInput('status_B')} \n
     badge_job: ${core.getInput('status_C')} \n
     deploy_job: ${core.getInput('status_D')}`
 };
+
 
 transporter.sendMail(mailOptions, function(error, info){
     if (error) {
