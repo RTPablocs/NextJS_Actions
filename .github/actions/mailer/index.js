@@ -14613,7 +14613,6 @@ const core = __nccwpck_require__(6024)
 const transporter = mailer.createTransport({
     host: 'smtp.ionos.es',
     port: 587,
-    secure: true,
     auth: {
         user: core.getInput('mail_sender'),
         pass: core.getInput('mail_password')
