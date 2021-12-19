@@ -54,7 +54,7 @@ jobs:
 
   add_badge_job:
 
-    needs: execute_cypress_test
+    needs: cypress_job
 
     runs-on: ubuntu-latest
 
