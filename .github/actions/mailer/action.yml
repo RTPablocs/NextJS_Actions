@@ -14,6 +14,26 @@ inputs:
     description: 'mail password'
     required: true
     default: ''
+
+  status_a:
+    description: 'job status A'
+    required: true
+    default: ''
+
+  status_b:
+    description: 'job status b'
+    required: true
+    default: ''
+
+  status_c:
+    description: 'job status c'
+    required: true
+    default: ''
+
+  status_d:
+    description: 'job status d'
+    required: true
+    default: ''
 runs:
   using: 'node12'
   main: 'index.js'
