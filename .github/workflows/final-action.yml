@@ -2,37 +2,39 @@ name: Github action final
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
 
-jobs: 
+jobs:
 
   lint:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Get Code
-      uses: actions/checkout@v2
-   
-    - name: Install through npm
-      run: npm install
-  
-    - name: Lint Code
-      uses: github/super-linter@v3
-      env:
-        DEFAULT_BRANCH: master
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        LINTER_RULES_PATH: /
-        JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
-        VALIDATE_JAVASCRIPT_ES: true
+      - name: Get Code
+        uses: actions/checkout@v2
+
+      - name: Install through npm
+        run: npm install
+
+      - name: Lint Code
+        uses: github/super-linter@v3
+        env:
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LINTER_RULES_PATH: /
+          JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
+          VALIDATE_JAVASCRIPT_ES: true
   
   exectue_cypress_test:
     
     needs: lint
 
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Get Code
         uses: actions/checkout@v2
+        with:
+          headless: true
       - name: Cypress Execution
         id: cypress
         continue-on-error: true
