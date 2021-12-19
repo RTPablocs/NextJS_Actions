@@ -33,12 +33,11 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v2
-        with:
-          headless: true
       - name: Cypress Execution
-        id: cypress
         continue-on-error: true
         uses: cypress-io/github-action/@v2
+        with:
+          headless: true
       - name: Print Dashboard URL
         run: |
           echo Cypress finished with: ${{ steps.cypress.outcome }}
