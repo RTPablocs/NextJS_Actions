@@ -39,6 +39,8 @@ jobs:
         id: cypress
         continue-on-error: true
         uses: cypress-io/github-action/@v2
+        with:
+          config: baseUrl=http://127.0.0.1:3000
       - name: Print Dashboard URL
         run: |
           echo Cypress finished with: ${{ steps.cypress.outcome }}
