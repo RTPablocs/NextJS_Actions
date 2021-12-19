@@ -73,7 +73,7 @@ jobs:
       - name: Update Badge
         uses: ./.github/actions/readme
         with:
-          status: ${{steps.results.outputs.cypress_outcome}}
+          result: ${{steps.results.outputs.cypress_outcome}}
       - name: Commit and push if changed
         run: |
           git config --global user.email "readme-bot@epablocs.com"
@@ -107,6 +107,8 @@ jobs:
     needs: deploy_job
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
       - name: Send Mail
         uses: ./.github/actions/mailer
         with:
