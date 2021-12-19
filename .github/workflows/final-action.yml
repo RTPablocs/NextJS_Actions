@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Get Code
+    - name: Get Code for Installation
       uses: actions/checkout@v2
     - name: Install through npm
       run: npm install
