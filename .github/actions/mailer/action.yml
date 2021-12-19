@@ -15,22 +15,22 @@ inputs:
     required: true
     default: ''
 
-  status_a:
+  status_A:
     description: 'job status A'
     required: true
     default: ''
 
-  status_b:
+  status_B:
     description: 'job status b'
     required: true
     default: ''
 
-  status_c:
+  status_C:
     description: 'job status c'
     required: true
     default: ''
 
-  status_d:
+  status_D:
     description: 'job status d'
     required: true
     default: ''
