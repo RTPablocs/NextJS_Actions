@@ -1,0 +1,39 @@
+name: Github action final
+
+on:
+  push:
+    branches: [master]
+
+jobs: 
+
+  lint:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Get Code
+      uses: actions/checkout@v2
+    - name: Lint Code
+      uses: github/super-linter@v3
+      env:
+        DEFAULT_BRANCH: master
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        LINTER_RULES_PATH: /
+        JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.json
+        VALIDATE_JAVASCRIPT_ES: true
+  
+  exectue_cypress_test:
+    
+    needs: lint
+
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Get Code
+        uses: actions/checkout@v2
+      - name: Cypress Execution
+        id: cypress
+        continue-on-error: true
+        uses: cypress-io/github-action/@v2
+      - name: Print Dashboard URL
+        run: |
+          echo Cypress finished with: ${{ steps.cypress.outcome }}
