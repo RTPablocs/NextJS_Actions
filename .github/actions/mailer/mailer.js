@@ -1,6 +1,18 @@
 const mailer = require('nodemailer')
 const core = require('@actions/core')
+const fetch = require('node-fetch')
 
+let data = {}
+let status = []
+
+const result = fetch(`https://api.github.com/repos/RTPablocs/NextJS_Actions/actions/runs/${core.getInput('id')}/jobs`, {method: 'GET'})
+    .then(data => data.json())
+    .then(json => data = json)
+
+
+data.jobs.forEach(job => {
+    status.push(job.status)
+})
 
 const transporter = mailer.createTransport({
     host: 'smtp.ionos.es',
@@ -15,10 +27,10 @@ const mailOptions = {
     from: core.getInput('mail_sender'),
     to: core.getInput('mail_reciever'),
     subject: 'Resultado de la action de NextJS',
-    text: `linter_job: ${core.getInput('status_A')} \n
-    cypress_job: ${core.getInput('status_B')} \n
-    badge_job: ${core.getInput('status_C')} \n
-    deploy_job: ${core.getInput('status_D')}`
+    text: `linter_job: ${status[0]} \n
+    cypress_job: ${status[1]} \n
+    badge_job: ${status[2]} \n
+    deploy_job: ${status[3]}`
 };
 
 

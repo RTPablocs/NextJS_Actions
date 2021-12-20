@@ -115,10 +115,7 @@ jobs:
           mail_sender: ${{secrets.MAIL}}
           mail_reciever: ${{secrets.MAILR}}
           mail_password: ${{secrets.PASSWD}}
-          status_A: ${{steps.linter.conclusion}}
-          status_B: ${{steps.cypress.conclusion}}
-          status_C: ${{steps.results.conclusion}}
-          status_D: ${{steps.deploy.conclusion}}
+          id: ${{github.run_id}}
 
 
 

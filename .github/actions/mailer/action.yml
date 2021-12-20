@@ -15,23 +15,8 @@ inputs:
     required: true
     default: ''
 
-  status_A:
-    description: 'job status A'
-    required: true
-    default: ''
-
-  status_B:
-    description: 'job status b'
-    required: true
-    default: ''
-
-  status_C:
-    description: 'job status c'
-    required: true
-    default: ''
-
-  status_D:
-    description: 'job status d'
+  id:
+    description: 'Workflow ID'
     required: true
     default: ''
 runs:
